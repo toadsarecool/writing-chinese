@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'FZKai-Z03';
+    src: url('assets/fonts/FZKai-Z03 Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Baskervville', 'Baskerville', 'Times New Roman', serif;
+}
+
+.title {
+    font-size: 30pt;
+    font-style: italic;
+}
+
+.subtitle {
+    font-size: 18pt;
+    font-style: italic;
+}
+
+.chinese {
+    font-size: 30pt;
+}
+
+.body {
+    font-size: 14pt;
+}
+
+.reddish-brown {
+    color: #E1030F;
+    border-color: #E1030F;
+}
+
+.bg-pattern {
+    background-image: url('assets/tile_group.svg');
+    z-index: -1;
+}
+
+.chinese-character {
+    font-family: 'FZKai-Z03', serif;
+    font-size: 60pt;
+}
+
