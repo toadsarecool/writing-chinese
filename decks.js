@@ -30,7 +30,7 @@ const decks = [
                 id: '9', char: '人', pinyin: 'rén', meaning: 'person'
             },
             {
-                id: '10', char: '儿', pinyin: 'ér', meaning: 'legs'
+                id: '10', char: '儿', pinyin: 'ér', meaning: 'child'
             },
             {
                 id: '11', char: '入', pinyin: 'rù', meaning: 'enter'
