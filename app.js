@@ -1,5 +1,5 @@
 // Track currently selected deck and character
-let selectedDeckIndex = 2; // Set default deck to radicals
+let selectedDeckIndex = 0; // Set default deck to radicals
 let currentCharacterIndex = 0;
 let pinyinVisible = false;
 
