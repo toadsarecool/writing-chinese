@@ -14,17 +14,17 @@ body {
     font-style: italic;
 }
 
-.subtitle {
-    font-size: 18pt;
-    font-style: italic;
-}
-
 .chinese {
     font-size: 24pt;
 }
 
+.subtitle {
+    font-size: 12pt;
+    font-style: italic;
+}
+
 .body {
-    font-size: 14pt;
+    font-size: 12pt;
 }
 
 .reddish-brown {
