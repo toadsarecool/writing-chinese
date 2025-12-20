@@ -10,7 +10,7 @@ body {
 }
 
 .title {
-    font-size: 30pt;
+    font-size: 24pt;
     font-style: italic;
 }
 
@@ -20,7 +20,7 @@ body {
 }
 
 .chinese {
-    font-size: 30pt;
+    font-size: 24pt;
 }
 
 .body {
@@ -41,4 +41,3 @@ body {
     font-family: 'FZKai-Z03', serif;
     font-size: 60pt;
 }
-

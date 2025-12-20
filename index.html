@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="decks.js"></script>
     <script src="app.js"></script>
 </head>
+
 <body class="bg-white m-0 p-0 overflow-hidden">
-    <div class="relative w-screen h-screen">
+    <div class="relative w-screen h-screen flex flex-col items-center gap-20 p-4">
         <!-- Title -->
-        <div class="absolute top-4 left-1/2 transform -translate-x-1/2">
+        <div class="">
             <h1 class="title reddish-brown">Writing Chinese</h1>
         </div>
 
-        <!-- Decks Section (Top Left) -->
-        <div class="absolute top-20 left-20 w-36">
+        <!-- Decks Section (Bottom Left) -->
+        <div class="absolute bottom-2 left-2">
             <div class="border-2 reddish-brown p-4 bg-white">
                 <div class="subtitle reddish-brown mb-2">Decks</div>
                 <div class="body reddish-brown" id="decks-list">
@@ -30,22 +33,16 @@
         </div>
 
         <!-- Main Character Display (Center Top) -->
-        <div class="absolute top-32 left-1/2 transform -translate-x-1/2">
+        <div class="">
             <div class="border-2 reddish-brown w-48 h-48 bg-gray-200 flex items-center justify-center">
                 <div class="chinese reddish-brown chinese-character" id="character-display">我</div>
             </div>
             <div class="body reddish-brown mt-2 text-center" id="progress-display">1/20</div>
         </div>
 
-        <!-- Pinyin Display (Center Middle) -->
-        <div class="absolute top-96 left-1/2 transform -translate-x-1/2" id="pinyin-container" style="display: none;">
-            <div class="border-2 reddish-brown px-6 py-2 bg-white">
-                <div class="body reddish-brown" id="pinyin-display">wǒ</div>
-            </div>
-        </div>
-
-         <!-- Meaning Display (Left) -->
-         <div class="absolute top-48 left-[80%] transform -translate-x-1/2" id="meaning-container" style="display: none;">
+        <!-- Meaning Display (Left) -->
+        <div class="absolute top-48 left-[80%] transform -translate-x-1/2" id="meaning-container"
+            style="display: none;">
             <div class="border-2 reddish-brown px-6 py-2 bg-white">
                 <div class="body reddish-brown" id="meaning-display">me</div>
             </div>
@@ -53,15 +50,20 @@
 
         <!-- Writing Area Container with Navigation -->
         <div class="absolute top-[28rem] left-1/2 transform -translate-x-1/2 flex items-center gap-4">
+
             <!-- Back Button -->
             <button id="back-button" class="border-2 reddish-brown px-6 py-2 bg-white body reddish-brown">back</button>
-            
+
             <!-- Writing Area -->
             <div class="relative">
-                <canvas id="writing-canvas" class="border-2 reddish-brown w-80 h-80 bg-white" width="320" height="320"></canvas>
+                <canvas id="writing-canvas" class="border-2 reddish-brown w-48 h-48 bg-white" width="320"
+                    height="320"></canvas>
                 <!-- Refresh Button -->
-                <button id="refresh-button" class="absolute top-2 right-2 w-[20px] h-[20px] p-0 border-0 bg-transparent cursor-pointer" style="width: 20px; height: 20px; padding: 0;">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E1030F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button id="refresh-button"
+                    class="absolute top-2 right-2 w-[20px] h-[20px] p-0 border-0 bg-transparent cursor-pointer"
+                    style="width: 20px; height: 20px; padding: 0;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E1030F" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
                         <path d="M21 3v5h-5"></path>
                         <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
@@ -69,19 +71,28 @@
                     </svg>
                 </button>
             </div>
-            
+
             <!-- Next Button -->
             <button id="next-button" class="border-2 reddish-brown px-6 py-2 bg-white body reddish-brown">next</button>
         </div>
 
+        <!-- Pinyin Display (Above writing area) -->
+        <div class="absolute top-[24rem] left-1/2 transform -translate-x-1/2" id="pinyin-container"
+            style="display: none;">
+            <div class="border-2 reddish-brown px-6 py-2 bg-white">
+                <div class="body reddish-brown" id="pinyin-display">wǒ</div>
+            </div>
+        </div>
+
         <!-- Show Button (Below Writing Area) -->
-        <div class="absolute top-[49rem] left-1/2 transform -translate-x-1/2">
-            <button id="show-hide-button" class="border-2 reddish-brown px-6 py-2 bg-white body reddish-brown">show</button>
+        <div class="absolute top-[41rem] left-1/2 transform -translate-x-1/2">
+            <button id="show-hide-button"
+                class="border-2 reddish-brown px-6 py-2 bg-white body reddish-brown">show</button>
         </div>
 
         <!-- Background Pattern (Bottom Half) -->
         <div class="absolute bottom-0 left-0 w-full h-1/2 bg-pattern"></div>
     </div>
 </body>
-</html>
 
+</html>
