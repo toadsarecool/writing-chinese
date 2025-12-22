@@ -3,6 +3,9 @@ let selectedDeckIndex = 0; // Set default deck to radicals
 let currentCharacterIndex = 0;
 let pinyinVisible = false;
 
+// Review deck key for localStorage
+const REVIEW_DECK_KEY = 'reviewDeck';
+
 // Update character display based on selected deck
 function updateCharacterDisplay() {
     const selectedDeck = decks[selectedDeckIndex];
@@ -35,9 +38,69 @@ function updateCharacterDisplay() {
         progressDisplay.textContent = `${currentCharacterIndex + 1}/${totalCharacters}`;
     }
 
+    // Update flag indicator
+    updateFlagIndicator();
+
     // Clear canvas when character changes
     if (typeof window.clearCanvas === 'function') {
         window.clearCanvas();
+    }
+}
+
+// Update flag button visual state
+function updateFlagIndicator() {
+    const selectedDeck = decks[selectedDeckIndex];
+    if (!selectedDeck || !selectedDeck.characters || selectedDeck.characters.length === 0) return;
+
+    const currentCharacter = selectedDeck.characters[currentCharacterIndex];
+    const reviewDeck = decks.find(deck => deck.name === 'review');
+
+    if (!reviewDeck) return;
+
+    const isFlagged = reviewDeck.characters.some(char => char.id === currentCharacter.id);
+    const flagButton = document.getElementById('flag-button');
+
+    if (flagButton) {
+        const svg = flagButton.querySelector('svg');
+        if (svg) {
+            if (isFlagged) {
+                // Fill the flag red when flagged
+                svg.setAttribute('stroke', '#E1030F');
+                flagButton.style.opacity = '1';
+            } else {
+                // Empty flag for unflagged characters
+                svg.setAttribute('stroke', '#666666');
+                flagButton.style.opacity = '0.3';
+            }
+        }
+    }
+}
+
+// Initialize review deck from localStorage
+function initializeReviewDeck() {
+    const savedReview = localStorage.getItem(REVIEW_DECK_KEY);
+    const reviewCharacters = savedReview ? JSON.parse(savedReview) : [];
+
+    // Check if review deck already exists
+    const reviewDeckIndex = decks.findIndex(deck => deck.name === 'review');
+
+    if (reviewDeckIndex === -1) {
+        // Add review deck if it doesn't exist
+        decks.push({
+            name: 'review',
+            characters: reviewCharacters
+        });
+    } else {
+        // Update existing review deck
+        decks[reviewDeckIndex].characters = reviewCharacters;
+    }
+}
+
+// Save review deck to localStorage
+function saveReviewDeck() {
+    const reviewDeck = decks.find(deck => deck.name === 'review');
+    if (reviewDeck) {
+        localStorage.setItem(REVIEW_DECK_KEY, JSON.stringify(reviewDeck.characters));
     }
 }
 
@@ -68,6 +131,32 @@ function loadDecks() {
 
         decksListContainer.appendChild(deckItem);
     });
+}
+
+// Flag character for review (toggle flag on/off)
+function flagCharacter() {
+    const selectedDeck = decks[selectedDeckIndex];
+    if (!selectedDeck || !selectedDeck.characters || selectedDeck.characters.length === 0) return;
+
+    const currentCharacter = selectedDeck.characters[currentCharacterIndex];
+    const reviewDeck = decks.find(deck => deck.name === 'review');
+
+    if (!reviewDeck) return;
+
+    // Check if character already exists in review deck
+    const existingIndex = reviewDeck.characters.findIndex(char => char.id === currentCharacter.id);
+
+    if (existingIndex === -1) {
+        // Character not flagged - add it
+        reviewDeck.characters.push(currentCharacter);
+        saveReviewDeck();
+        updateFlagIndicator();
+    } else {
+        // Character already flagged - remove it
+        reviewDeck.characters.splice(existingIndex, 1);
+        saveReviewDeck();
+        updateFlagIndicator();
+    }
 }
 
 // Navigate to next character
@@ -274,6 +363,9 @@ function initCanvas() {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize review deck from localStorage
+    initializeReviewDeck();
+
     loadDecks();
     updateCharacterDisplay();
 
@@ -287,6 +379,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (backButton) {
         backButton.addEventListener('click', previousCharacter);
+    }
+
+    // Add event listener for flag button
+    const flagButton = document.getElementById('flag-button');
+    if (flagButton) {
+        flagButton.addEventListener('click', flagCharacter);
     }
 
     // Add event listener for show/hide button
